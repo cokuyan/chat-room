@@ -12,10 +12,12 @@ $(function () {
     chat.addMessage(data.message);
   });
 
-  socket.on('updateRoom', function (room) {
-    chat.room = room;
-    $('h2').text(room);
+  socket.on('updateRoom', function (data) {
+    chat.room = data.room;
+    $('h2.room').text(chat.room);
     $("ul.messages").empty();
+
+    $('ul.rooms').empty();
   })
 
   socket.on("updateUsersList", function (nicknames) {
