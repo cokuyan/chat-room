@@ -4,11 +4,20 @@ $(function () {
   var socket = io();
   var chat = new ChatApp.Chat(socket);
 
+  // need to broadcast name change to whole room
   socket.on('nicknameChangeResult', function (data) {
     if (data.success) {
-      chat.addMessage(data.message)
-    } else {
-      chat.addMessage(data.message)
+      socket.emit("updateUsersList");
+    }
+    chat.addMessage(data.message);
+  });
+
+  socket.on("updateUsersList", function (nicknames) {
+    var $users = $("ul.users");
+    $users.empty();
+    for (var user in nicknames) {
+      var $li = $("<li>").text(nicknames[user]);
+      $users.append($li);
     }
   });
 

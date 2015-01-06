@@ -25,7 +25,6 @@
       messageText = message['user'] + ": " + message.text;
     } else {
       messageText = message;
-      console.log(message)
     }
     var $li = $("<li class='message'>").text(messageText);
     $("ul.messages").prepend($li);
