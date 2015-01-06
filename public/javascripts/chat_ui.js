@@ -15,6 +15,7 @@ $(function () {
   socket.on('updateRoom', function (room) {
     chat.room = room;
     $('h2').text(room);
+    $("ul.messages").empty();
   })
 
   socket.on("updateUsersList", function (nicknames) {
