@@ -14,6 +14,9 @@
     if (/^\/nick/.test(command)) {
       var nickname = command.match(/\/nick\s(.*)/)[1];
       this.socket.emit("nicknameChangeRequest", nickname);
+    } else if (/^\/join/.test(command)) {
+      var room = command.match(/\/join\s(.*)/)[1];
+      this.socket.emit("roomChangeRequest", room);
     } else {
       throw "Cannot process this command";
     }
@@ -31,7 +34,10 @@
   };
 
   Chat.prototype.sendMessage = function (text) {
-    this.socket.emit('message', { text: text });
+    this.socket.emit('message', {
+      text: text,
+      room: this.room
+    });
   };
 
 }());

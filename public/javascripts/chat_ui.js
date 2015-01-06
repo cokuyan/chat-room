@@ -7,10 +7,15 @@ $(function () {
   // need to broadcast name change to whole room
   socket.on('nicknameChangeResult', function (data) {
     if (data.success) {
-      socket.emit("updateUsersList");
+      socket.emit("updateUsersList", data);
     }
     chat.addMessage(data.message);
   });
+
+  socket.on('updateRoom', function (room) {
+    chat.room = room;
+    $('h2').text(room);
+  })
 
   socket.on("updateUsersList", function (nicknames) {
     var $users = $("ul.users");
